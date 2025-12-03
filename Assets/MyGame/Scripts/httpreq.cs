@@ -11,6 +11,7 @@ using static System.Net.WebRequestMethods;
 using TMPro;
 using System.Text.RegularExpressions;
 using UnityEngine.UI;
+using System.Linq;
 
 
 
@@ -55,6 +56,7 @@ public class httpreq : MonoBehaviour
         
         return "Name nicht gefunden";
     }
+
  
     // Update is called once per frame
     void Update()
@@ -72,19 +74,16 @@ public class httpreq : MonoBehaviour
                 try
                 {
                     // Send a GET request to the specified URL
-                    HttpResponseMessage response = await client.GetAsync(meesURL);
+                    HttpResponseMessage response1 = await client.GetAsync(meesURL);
                     // Ensure the request was successful
-                    response.EnsureSuccessStatusCode();
+                    response1.EnsureSuccessStatusCode();
                     // Read the response content as a string
-                    responseString = await response.Content.ReadAsStringAsync();
+                    responseString = await response1.Content.ReadAsStringAsync();
                     // Log the response string to the Unity console
                     Debug.Log("Response: " + responseString);
                     Console.WriteLine("Response: " + responseString);
 
                     teacherName1.text = ExtractTeacherName(responseString);
-                    teacherName2.text = ExtractTeacherName(responseString);
-
-
                 }
                 catch (HttpRequestException e)
                 {
